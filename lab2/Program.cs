@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace lr3_katamaran
+namespace lr4_katamaran
 {
     static class Program
     {

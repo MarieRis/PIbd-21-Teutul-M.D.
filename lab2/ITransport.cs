@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr3_katamaran
+namespace lr4_katamaran
 {
-    interface ITransport
+   public interface ITransport
     {
         void moveKatamaran(Graphics g);
         void drawKatamaran(Graphics g);

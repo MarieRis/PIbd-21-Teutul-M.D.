@@ -4,70 +4,64 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr3_katamaran
+namespace lr4_katamaran
 {
     class ClassArray<T> where T : ITransport
     {
+        private Dictionary<int, T> places;
+        private int maxCount;
 
-        private T[] place;
         private T defaultValue;
 
-        public ClassArray(int sizes, T defVal)
+        public ClassArray(int size, T defVal)
         {
             defaultValue = defVal;
-            place = new T[sizes];
-            for (int i = 0; i < place.Length; i++)
-            {
-                place[i] = defaultValue;
-            }
+            places = new Dictionary<int, T>();
+            maxCount = size;
         }
 
-        public T getObject(int ind)
+
+        public static int operator +(ClassArray<T> t, T Tarantul)
         {
-            if (ind > -1 && ind < place.Length)
+            if (t.places.Count == t.maxCount)
             {
-                return place[ind];
+                return -1;
             }
-            return defaultValue;
-        }
-        public static int operator +(ClassArray<T> t, T Katamaran)
-        {
-            for (int i = 0; i < t.place.Length; i++)
+            for (int i = 0; i < t.places.Count; i++)
             {
                 if (t.CheckFreeTerra(i))
                 {
-                    t.place[i] = Katamaran;
+                    t.places.Add(i, Tarantul);
                     return i;
                 }
             }
-            return -1;
+            t.places.Add(t.places.Count, Tarantul);
+            return t.places.Count - 1;
         }
         public static T operator -(ClassArray<T> t, int index)
         {
-            if (!t.CheckFreeTerra(index))
+            if (t.places.ContainsKey(index))
             {
-                T Tarantul = t.place[index];
-                t.place[index] = t.defaultValue;
-                return Tarantul;
-
+                T Katamaran = t.places[index];
+                t.places.Remove(index);
+                return Katamaran;
             }
             return t.defaultValue;
         }
         private bool CheckFreeTerra(int index)
         {
-            if (index < 0 || index > place.Length)
+            return !places.ContainsKey(index);
+        }
+        public T this[int ind]
+        {
+            get
             {
-                return false;
+                if (places.ContainsKey(ind))
+                {
+                    return places[ind];
+                }
+                return defaultValue;
             }
-            if (place[index] == null)
-            {
-                return true;
-            }
-            if (place[index].Equals(defaultValue))
-            {
-                return true;
-            }
-            return false;
         }
     }
 }
