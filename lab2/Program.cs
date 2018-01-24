@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace lr4_katamaran
+namespace lr5_katamaran
 {
+    public delegate void myDel(lr5_katamaran.ITransport katamaran);
     static class Program
     {
+       
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>

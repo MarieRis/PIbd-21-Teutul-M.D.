@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr4_katamaran
+namespace lr5_katamaran
 {
     public class Walking : Katamaran
     {
@@ -51,6 +51,12 @@ namespace lr4_katamaran
                 g.DrawEllipse(h, startPosX - 10, startPosY, 12, 12);
             }
 
+         }
+
+        public override string getInfo()
+        {
+            return MaxSpeed + ";" + MaxcountPassengers + ";" + Weight + ";" + ColorBody.Name + ";" + Lifebuoy + ";" + dopcolor.Name;
+                
         }
     }
 }

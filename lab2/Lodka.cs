@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr4_katamaran
+namespace lr5_katamaran
 {
     public abstract class Lodka : ITransport
     {
@@ -45,6 +45,10 @@ namespace lr4_katamaran
             return count;
         }
 
-
+        public virtual void SetMainColor(Color color)
+        {
+            ColorBody = color;
+        }
+        public abstract string getInfo();
     }
 }

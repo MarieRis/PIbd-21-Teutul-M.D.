@@ -8,15 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace lr4_katamaran
+namespace lr5_katamaran
 {
     public partial class Form1 : Form
     {
-       Parking parking;
+        Parking parking;
+
+        Form2 form;
         public Form1()
         {
             InitializeComponent();
-
             parking = new Parking(5);
 
             for (int i = 1; i < 6; i++)
@@ -26,7 +27,22 @@ namespace lr4_katamaran
             listBox1.SelectedIndex = parking.getCurrentLevel;
             Draw();
         }
-
+        private void Draw()
+        {
+            if (listBox1.SelectedIndex > -1)
+            {
+                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                Graphics gr = Graphics.FromImage(bmp);
+                parking.Draw(gr, 1000, 200);
+                pictureBox1.Image = bmp;
+            }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            form = new Form2();
+            form.AddEvent(AddKatamaran);
+            form.Show();
+        }
         private void AddKatamaran(ITransport katamaran)
         {
             if (katamaran != null)
@@ -44,31 +60,21 @@ namespace lr4_katamaran
             }
         }
 
-        private void Draw()
-        {
-            if (listBox1.SelectedIndex > -1)
-            {
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                parking.Draw(gr, 1000, 200);
-                pictureBox1.Image = bmp;
-            }
-        }
-        private void button1_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
             parking.LevelDown();
             listBox1.SelectedIndex = parking.getCurrentLevel;
             Draw();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e)
         {
             parking.LevelUp();
             listBox1.SelectedIndex = parking.getCurrentLevel;
             Draw();
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex > -1)
             {
@@ -93,32 +99,53 @@ namespace lr4_katamaran
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                var katamaran = new Katamaran(100, 4, 1000, dialog.Color);
-                int place = parking.PutKatamaranInParking(katamaran);
-                Draw();
-                MessageBox.Show("Ваше место: " + place);
-            }
+
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void menuStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            ColorDialog dialog = new ColorDialog();
-            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog()==System.Windows.Forms.DialogResult.OK)
             {
-                ColorDialog dialogDop = new ColorDialog();
-                if (dialogDop.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+
+                if (parking.SaveData(saveFileDialog1.FileName))
                 {
-                    var Walk = new Walking(100, 4, 1000, dialog.Color, true, true, dialogDop.Color);
-                    int place = parking.PutKatamaranInParking(Walk);
-                    Draw();
-                    MessageBox.Show("Ваше место: " + place);
+
+                    MessageBox.Show("Сохранение прошло успешно", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                } 
+                else
+                {
+
+                    MessageBox.Show("Не сохранилось", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
+        private void загрузитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+                if (parking.LoadData(openFileDialog1.FileName))
+                {
+
+                    MessageBox.Show("Загрузили", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                else
+                {
+
+                    MessageBox.Show("Не загрузили", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                Draw();
+            }
+        }
     }
-}
+    }
+
