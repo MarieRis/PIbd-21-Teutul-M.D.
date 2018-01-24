@@ -8,111 +8,67 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace lr2_katamaran
+namespace lr3_katamaran
 {
     public partial class Form1 : Form
     {
-        Color color;
-        Color dopColor;
-        int maxSpeed;
-        int maxcountPassengers;
-        int Weight;
-
-        private ITransport inter;
-
+        Parking parking;
         public Form1()
         {
             InitializeComponent();
-            color = Color.Brown;
-            dopColor =Color.Red;
-            maxSpeed = 150;
-            maxcountPassengers = 3;
-            Weight = 1500;
-            button1.BackColor = color;
-            button2.BackColor = dopColor;
-        }
-        private bool checkFields()
-        {
-
-            if (!int.TryParse(textBox1.Text, out maxSpeed))
-            {
-                return false;
-            }
-            if (!int.TryParse(textBox2.Text, out Weight))
-            {
-                return false;
-            }
-            if (!int.TryParse(textBox3.Text, out maxcountPassengers))
-            {
-                return false;
-            }
-            return true;
-
+            parking = new Parking();
+            Draw();
         }
 
-        private void Katamaran_Click(object sender, EventArgs e)
+        private void Draw()
         {
-            if (checkFields())
+            Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+            Graphics gr = Graphics.FromImage(bmp);
+            parking.Draw(gr, pictureBox1.Width, pictureBox1.Height);
+            pictureBox1.Image = bmp;
+
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                inter = new Katamaran(maxSpeed,maxcountPassengers,Weight, color);
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                var katamaran = new Katamaran(100, 4, 1000, dialog.Color);
+                int place = parking.PutKatamaranInParking(katamaran);
+                Draw();
+                MessageBox.Show("Ваше место: " + place);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            ColorDialog dialog = new ColorDialog();
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                ColorDialog dialogDop = new ColorDialog();
+                if (dialogDop.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    var Walk = new Walking(100, 4, 1000, dialog.Color, true, true, dialogDop.Color);
+                    int place = parking.PutKatamaranInParking(Walk);
+                    Draw();
+                    MessageBox.Show("Ваше место: " + place);
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (maskedTextBox1.Text != "")
+            {
+                var katamaran = parking.GetKatamaranInParking(Convert.ToInt32(maskedTextBox1.Text));
+
+                Bitmap bmp = new Bitmap(pictureBox2.Width, pictureBox2.Height);
                 Graphics gr = Graphics.FromImage(bmp);
-                inter.drawKatamaran(gr);
-                pictureBox1.Image = bmp;
+                katamaran.SetPosition(40, 40);
+                katamaran.drawKatamaran(gr);
+                pictureBox2.Image = bmp;
+                Draw();
             }
-
-        }
-
-        private void Walking_Click(object sender, EventArgs e)
-        {
-
-            if (checkFields())
-            {
-                inter = new Walking(maxSpeed, maxcountPassengers, Weight, color,
-                    checkBox1.Checked, checkBox2.Checked, dopColor);
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                inter.drawKatamaran(gr);
-                pictureBox1.Image = bmp;
-            }
-
-        }
-
-        private void Dvig_Click(object sender, EventArgs e)
-        {
-            if (inter != null)
-            {
-                Bitmap bmp = new Bitmap(pictureBox1.Width, pictureBox1.Height);
-                Graphics gr = Graphics.FromImage(bmp);
-                inter.moveKatamaran(gr);
-                pictureBox1.Image = bmp;
-            }
-        }
-
-        private void Color_Click(object sender, EventArgs e)
-        {
-            ColorDialog cd = new ColorDialog();
-            if (cd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                color = cd.Color;
-                button1.BackColor = color;
-            }
-        }
-
-        private void dopColor_Click(object sender, EventArgs e)
-        {
-        
-            ColorDialog cd = new ColorDialog();
-            if (cd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                dopColor = cd.Color;
-                button2.BackColor = dopColor;
-            }
-        }
-
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

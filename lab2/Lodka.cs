@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr2_katamaran
+namespace lr3_katamaran
 {
-   public abstract class Lodka : ITransport
+    public abstract class Lodka : ITransport
     {
         protected int passengers;
         protected float startPosX;
         protected float startPosY;
-       
+
         public virtual int MaxcountPassengers { protected set; get; }
 
         public virtual int MaxSpeed { protected set; get; }
@@ -45,6 +45,6 @@ namespace lr2_katamaran
             return count;
         }
 
-
+      
     }
 }
