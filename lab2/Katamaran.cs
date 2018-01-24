@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr3_katamaran
+namespace lr4_katamaran
 {
     public class Katamaran : Lodka
     {
@@ -115,6 +115,3 @@ namespace lr3_katamaran
         }
     }
 }
-
-
-
