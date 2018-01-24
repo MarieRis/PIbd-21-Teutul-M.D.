@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr2_katamaran
+namespace lr3_katamaran
 {
-     public class Walking:Katamaran
+    public class Walking : Katamaran
     {
         private Color dopcolor;
         private bool dopPassengers;
         private bool Lifebuoy;
 
         public Walking(int maxSpeed, int maxcountEaten, double weight,
-            Color color, bool dopPassengers, bool Lifebuoy, Color dopcolor):
-            base(maxSpeed,maxcountEaten, weight, color)
+            Color color, bool dopPassengers, bool Lifebuoy, Color dopcolor) :
+            base(maxSpeed, maxcountEaten, weight, color)
         {
             this.dopPassengers = dopPassengers;
             this.Lifebuoy = Lifebuoy;
@@ -26,11 +26,11 @@ namespace lr2_katamaran
 
             base.drawKatamaranNormal(g);
             Brush telo = new SolidBrush(ColorBody);
-            g.FillRectangle(telo, startPosX-10, startPosY - 20, 85, 60);
+            g.FillRectangle(telo, startPosX - 10, startPosY - 20, 85, 60);
             Brush tel = new SolidBrush(Color.White);
-            g.FillRectangle(tel, startPosX, startPosY-10, 65, 40);
+            g.FillRectangle(tel, startPosX, startPosY - 10, 65, 40);
             Brush t = new SolidBrush(Color.Red);
-            g.FillRectangle(t, startPosX + 10, startPosY-5, 12, 12);
+            g.FillRectangle(t, startPosX + 10, startPosY - 5, 12, 12);
             g.FillRectangle(t, startPosX + 10, startPosY + 10, 12, 12);
 
             g.FillRectangle(t, startPosX + 30, startPosY - 5, 12, 12);
@@ -47,11 +47,10 @@ namespace lr2_katamaran
 
             if (Lifebuoy)
             {
-                Pen h = new Pen(Color.Orange,4);
-                g.DrawEllipse(h, startPosX-10, startPosY, 12, 12);
+                Pen h = new Pen(Color.Orange, 4);
+                g.DrawEllipse(h, startPosX - 10, startPosY, 12, 12);
             }
 
         }
     }
 }
-

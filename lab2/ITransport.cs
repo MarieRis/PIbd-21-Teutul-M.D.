@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr2_katamaran
+namespace lr3_katamaran
 {
     interface ITransport
     {
