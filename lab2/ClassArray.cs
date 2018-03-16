@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr4_katamaran
+namespace lr5_katamaran
 {
     class ClassArray<T> where T : ITransport
     {

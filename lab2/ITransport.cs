@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr4_katamaran
+namespace lr5_katamaran
 {
-   public interface ITransport
+    public interface ITransport
     {
         void moveKatamaran(Graphics g);
         void drawKatamaran(Graphics g);
@@ -15,5 +15,8 @@ namespace lr4_katamaran
         void Passengers(int count);
         int getPassengers();
 
+        void SetMainColor(Color Color);
+
+        string getInfo();
     }
 }

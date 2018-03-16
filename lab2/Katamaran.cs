@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lr4_katamaran
+namespace lr5_katamaran
 {
     public class Katamaran : Lodka
     {
@@ -86,6 +86,23 @@ namespace lr4_katamaran
 
         }
 
+        public Katamaran (string info)
+        {
+            string[] strs = info.Split(':');
+            if (strs.Length==4)
+            {
+
+                MaxSpeed = Convert.ToInt32(strs[0]);
+                MaxSpeed = Convert.ToInt32(strs[1]);
+                Weight = Convert.ToInt32(strs[2]);
+                ColorBody = Color.FromName(strs[3]);
+            }
+
+            Random rand = new Random();
+            startPosX = rand.Next(10, 200);
+            startPosY = rand.Next(10, 200);
+        }
+
         public override void moveKatamaran(Graphics g)
         {
             startPosX += (MaxSpeed * 50 / (float)Weight);
@@ -112,6 +129,10 @@ namespace lr4_katamaran
             g.FillRectangle(t, startPosX + 30, startPosY + 10, 8, 8);
 
 
+        }
+        public override string getInfo()
+        {
+            return MaxSpeed + ";" + MaxcountPassengers + ";" + Weight + ";" + ColorBody.Name;
         }
     }
 }
