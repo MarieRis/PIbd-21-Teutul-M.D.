@@ -18,7 +18,8 @@ namespace lr5_katamaran
         int placeSizeHeight = 100;
 
         int currentLevel;
-        //private int counter;
+       
+    
 
         public bool SaveData(string filename)
         {
