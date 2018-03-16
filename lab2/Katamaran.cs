@@ -9,8 +9,7 @@ namespace lr2_katamaran
 {
     public class Katamaran:Lodka
     {
-   //     private Color color;
-     //   private Color dopcolor;
+   
 
         public override int MaxSpeed
         {
@@ -99,14 +98,13 @@ namespace lr2_katamaran
         }
         protected virtual void drawKatamaranNormal(Graphics g)
         {
-            //основа
             Brush telo = new SolidBrush(ColorBody);
             g.FillRectangle(telo, startPosX, startPosY - 10, 65, 40);
             Brush tel = new SolidBrush(Color.White);
             g.FillRectangle(tel, startPosX+10, startPosY - 10, 45, 40);
             Brush te = new SolidBrush(ColorBody);
             g.FillRectangle(te, startPosX + 20, startPosY , 25, 20);
-            //сиденья
+            
             Brush t = new SolidBrush(Color.Red);
             g.FillRectangle(t, startPosX + 30, startPosY, 8,8);
             g.FillRectangle(t, startPosX + 30, startPosY + 10, 8, 8);
